@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="ionicApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/ezar-ionic.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller="AppController" class="platform-ios platform-cordova platform-webview">
+
+    <ion-pane ng-init="takePicture()">
+      <ion-header-bar class="bar-dark ezar">     
+      </ion-header-bar>
+      
+      <!-- abs position title above header. Allow header to be semi-transparent
+           without applying to title -->
+      <div id="title" class="title">ezAR Ionic {{hello}}</div>
+      
+      <ion-content scroll="false">
+      </ion-content>
+      
+      <div class="bar bar-dark ezar ezar-footer"></div>
+      <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" id="sample-image" style="width:30%"/>
+      <a id="snapshot" class="ezar-button" ng-click="snapshot()"></a>
+      <a id="revcamera" class="ezar-button" ng-click="reverseCamera()"></a>      
+
+    </ion-pane>
+
+  </body>
+</html>

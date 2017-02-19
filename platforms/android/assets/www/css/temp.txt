@@ -1,0 +1,320 @@
+src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot"
+
+
+      <img id="sample-image" style="width:30%"/>
+      <a id="snapshot" class="ezar-button" ng-click="snapshot()"></a>
+      <a id="revcamera" class="ezar-button" ng-click="reverseCamera()"></a>  
+
+<ion-pane ng-init="takePicture()">
+
+        <p>----<p>                        
+        <div class="arrow-up"></div>
+        <div class="arrow-down"></div>
+        <div class="arrow-left"></div>
+        <div class="arrow-right"></div>
+
+     var posOptions = {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 0
+    };   
+     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+        var lat  = position.coords.latitude;
+        var long = position.coords.longitude;
+        console.log('lat '+lat);
+        console.log('long '+long);
+        console.log('position '+position);
+    }, function(err) {
+        console.log(err);
+    });  
+
+
+ <i class="icon ion-speakerphone"></i>  
+
+  function success123(results) {
+              var temp = JSON.stringify(results);
+              console.log('String '+temp);
+              $scope.recognizedText = temp.split('Rssi":')[1].split(',')[0];
+            };
+    function err123(e) {
+              console.log(JSON.stringify(e));
+            };
+   
+   WifiInfo.getWifiInfo(success123,err123);
+
+
+.arrow {
+    position: relative;
+    top:150px;
+    left:150px;
+    width:60px;
+    height:60px;
+    border-top:5px solid green;
+    border-right:5px solid green;
+}
+
+.right {
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476)";
+}
+
+.down {
+    -moz-transform:rotate(135deg);
+    -webkit-transform:rotate(135deg);
+    -o-transform:rotate(135deg);
+    -ms-transform:rotate(135deg);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=-0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=-0.7071067811865476)";
+}
+
+.left {
+    -moz-transform:rotate(225deg);
+    -webkit-transform:rotate(225deg);
+    -o-transform:rotate(225deg);
+    -ms-transform:rotate(225deg);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=-0.7071067811865476, M12=0.7071067811865475, M21=-0.7071067811865475, M22=-0.7071067811865476)";
+}
+
+.up {
+    -webkit-transform:rotate(315deg);
+    -o-transform:rotate(315deg);
+}
+
+
+  $scope.snapshotTimestamp = Date.now();
+  $scope.reverseCameraTimestamp = Date.now();
+
+  $scope.takePicture = function(){
+    setTimeout(function(){
+      ezar.snapshot(
+        function(aBase64Image) {
+          document.getElementById("sample-image").src = aBase64Image;
+          $scope.hello = 'Image Changed';
+          //do something with image here
+        }, 
+        function(err) {
+          //handle error
+          alert('Error: ' + err);
+        }, 
+        { //options
+          "saveToPictureAlbum": true,  //default
+          "encoding": ezar.ImageEncoding.PNG //JPG default
+        });
+      },1000);
+  };
+
+  $scope.snapshot = function() {
+          //ignore ghost clicks, wait 1.5 sec between invocations
+          if (Date.now() - $scope.snapshotTimestamp < 1500) return;
+          $scope.snapshotTimestamp = Date.now();
+          
+          //get snapshot & revcamera buttons to hide/show
+          var snapshotBtn = document.getElementById("snapshot");
+          var revCameraBtn = document.getElementById("revcamera");
+          
+          var inclWebView = true;    // include/exclude webView content on top of cameraView
+          var inclCameraBtns = true; // show/hide snapshot & revcamera btns
+
+          if (inclWebView && !inclCameraBtns) {
+              revCameraBtn.classList.add("hide");
+              snapshotBtn.classList.add("hide");              
+          }
+
+          setTimeout(function() {
+            ezar.snapshot(
+              function(abc) {
+                document.getElementById("sample-image").src = abc;
+                  //perform screen capture
+                  //show snapshot button
+                  if (inclWebView && !inclCameraBtns) {
+                    snapshotBtn.classList.remove("hide");        
+                    revCameraBtn.classList.remove("hide");
+                  }
+              },null,
+              {"encodingType": ezar.ImageEncoding.PNG,
+               "includeWebView": inclWebView,
+               "saveToPhotoAlbum": true});   
+          },200);   
+    };
+
+    $scope.reverseCamera = function() {
+      //ignore ghost clicks, wait 1.5 sec between invocations
+      if (Date.now() - $scope.reverseCameraTimestamp < 1500) return;
+      $scope.reverseCameraTimestamp = Date.now();
+
+      var camera = ezar.getActiveCamera();
+      if (!camera) {
+        return; //no camera running; do nothing
+      }
+
+      var newCamera = camera;
+      if (camera.getPosition() == "BACK" && ezar.hasFrontCamera()) { 
+            newCamera = ezar.getFrontCamera();
+      } else  if (camera.getPosition() == "FRONT" && ezar.hasBackCamera()) { 
+            newCamera = ezar.getBackCamera();
+      }
+
+      if (newCamera) {
+        newCamera.start();
+      }
+    }
+
+
+I/chromium( 9007): [INFO:CONSOLE(45)] "{"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-66,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (45)
+D/ConnectivityService(  759): updateNetworkScore for NetworkAgentInfo [WIFI () - 103] to 56
+D/ConnectivityService(  759): rematching NetworkAgentInfo [WIFI () - 103]
+D/ConnectivityService(  759): Network NetworkAgentInfo [WIFI () - 103] was already satisfying request 1. No change.
+D/ConnectivityService(  759): notifyType AVAILABLE for NetworkAgentInfo [WIFI () - 103]
+
+
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-61,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-64,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-64,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-66,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-66,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-66,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+I/chromium(13589): [INFO:CONSOLE(46)] "String {"MacAddress":"c0:ee:fb:3c:63:cd","BSSID":"f0:5c:19:32:98:d2","HiddenSSID":false,"IpAddress":"10.201.143.149","LinkSpeed":150,"NetworkId":11,"Rssi":-66,"SSID":"\"tamulink-wpa\""}", source: file:///android_asset/www/js/app.js (46)
+
+
+
+
+
+            var link = 'http://codered-2016.herokuapp.com/index';
+            $http.post(link, {imageData : aBase64Image}).then(function (res){
+                var responseObject = res.data;
+                if(responseObject.registered){
+                  $scope.registered = "registered";
+                }else{
+
+                }
+            },function(error){
+                $scope.hello = 'Image Changed 123 '+JSON.stringify(error);
+            });
+
+            https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Description
+
+            var stream = fs.createReadStream('./file');
+stream.pipe(postReq);
+
+
+var options = {
+    host: 'https://westus.api.cognitive.microsoft.com/',
+    path: 'vision/v1.0/analyze?visualFeatures=Description',
+    method: 'POST',
+    headers: {
+          'Ocp-Apim-Subscription-Key': 'c360270a2fcd4797ac7f16dbdac7c50d'
+    }
+};
+
+var postReq = http.request(options, function(res) {
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+          console.log('Response: ' + chunk);
+    });
+});
+
+
+   var posOptions = {timeout: 10000, enableHighAccuracy: false};
+   $cordovaGeolocation
+   .getCurrentPosition(posOptions)
+   .then(function (position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      console.log(lat + ' latitude - longitude  ' + long)
+   }, function(err) {
+      console.log('latitude err '+err)
+   });
+
+
+   -----
+
+   function base64toBlob(base64Data, contentType) {
+  contentType = contentType || '';
+  var sliceSize = 1024;
+  var byteCharacters = atob(base64Data);
+  var bytesLength = byteCharacters.length;
+  var slicesCount = Math.ceil(bytesLength / sliceSize);
+  var byteArrays = new Array(slicesCount);
+
+for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+    var begin = sliceIndex * sliceSize;
+    var end = Math.min(begin + sliceSize, bytesLength);
+
+    var bytes = new Array(end - begin);
+    for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+        bytes[i] = byteCharacters[offset].charCodeAt(0);
+    }
+    byteArrays[sliceIndex] = new Uint8Array(bytes);
+}
+return new Blob(byteArrays, { type: contentType });
+}
+
+
+
+var base64Blob = base64toBlob(base64Image, 'image/jpeg')
+        $cordovaFile.writeFile(cordova.file.externalDataDirectory, 'new_pic.jpg', base64Blob, true).then(
+          function(success){
+            console.log('success')
+            console.log(success)
+          },
+          function(error){
+            console.log(error)
+          }
+        )
+
+
+      setTimeout(function(){
+        document.getElementById('third-arrow').className = 'arrow-left';
+      },15000);
+      setTimeout(function(){
+        document.getElementById('second-arrow').className = 'arrow-left';
+      },15000); 
+      setTimeout(function(){
+        document.getElementById('first-arrow').className = 'arrow-left';
+      },15000);
+      setTimeout(function(){
+        document.getElementById('third-arrow').className = 'arrow-up';
+        document.getElementById('second-arrow').className = 'arrow-up';
+        document.getElementById('first-arrow').className = 'arrow-up';
+      },10000);
+      setTimeout(function(){
+        document.getElementById('third-arrow').className = 'arrow-left';
+      },10000);
+      setTimeout(function(){
+        document.getElementById('second-arrow').className = 'arrow-left';
+      },10000); 
+      setTimeout(function(){
+        document.getElementById('first-arrow').className = 'arrow-left';
+      },10000);  
+      setTimeout(function(){
+        document.getElementById('third-arrow').className = 'arrow-up';
+        document.getElementById('second-arrow').className = 'arrow-up';
+        document.getElementById('first-arrow').className = 'arrow-up';
+      },10000); 
+

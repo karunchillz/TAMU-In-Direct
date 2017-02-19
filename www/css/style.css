@@ -1,0 +1,164 @@
+
+
+#title {
+    /*color: darkred;*/
+    color: white;            
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 44px;
+    bottom: 0px;
+    height:150px;
+}
+
+.ezar-footer {
+    color: white;            
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 44px;    
+    height: 50px;
+    bottom: 0px;
+}
+
+.ezar-button {
+   position: absolute; 
+   z-index: 100;
+   background-color: transparent;
+   border-style: none; 
+}
+
+#snapshot {   
+    width: 72px;
+    height: 72px;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -36px;
+    background: url("../img/camera.png") no-repeat top;
+}
+
+#snapshot:active { 
+   background: url("../img/camera_blue.png") no-repeat top;
+}
+
+#revcamera {    
+    width: 50px;
+    height: 50px;
+    bottom: 27px;
+    right: 10px;
+    background: url("../img/reverse_camera_50.png") no-repeat top;
+}
+
+#revcamera:active {    
+    background: url("../img/reverse_camera_blue_50.png") no-repeat top;
+}
+
+.hide {
+    display: none;
+}
+
+#display-reached{
+    position: relative;
+    top: 280px;
+    left: 100px;
+    width: 50%;
+    font-size: 2em;
+    color: white;
+}
+
+#display-words{
+    position: relative;
+    top: 220px;
+    left: 115px;
+    width: 50%;
+    font-size: 10em;  
+    color: green;  
+}
+
+#emergency{
+    position: relative;
+    top: 280px;
+    left: 100px;
+    width: 50%;
+    font-size: 2em;    
+}
+
+#address-typer{
+  position: relative;
+  top: 200px;
+  left: 75px;
+  width: 60%;
+}
+
+#address-speaker{
+  position: relative;
+  top: 200px;
+  left: 85px;
+  width: 50%;
+}
+
+#map-area{
+  position: relative;
+  top: 200px;
+  left: 85px;
+  width: 50%;
+}
+
+.buttons .icon{
+    padding: 5px;
+    font-size: 2em;
+}
+
+.arrow-up {
+  position: relative;
+  top: 200px;
+  left: 135px;
+  width: 0; 
+  height: 0; 
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 50px solid green;
+  padding:1px;
+}
+
+ .arrow-down {
+  position: relative;
+  top: 200px;
+  left: 135px;    
+  width: 0; 
+  height: 0; 
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 50px solid green;
+}
+
+.arrow-right {
+  position: relative;
+  top: 200px;
+  left: 155px;    
+  width: 0; 
+  height: 0; 
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 50px solid green;
+}
+
+.arrow-left {
+  position: relative;
+  top: 200px;
+  left: 155px;    
+  width: 0; 
+  height: 0; 
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent; 
+  border-right:50px solid green; 
+}   
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color:red;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}

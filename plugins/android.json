@@ -1,0 +1,52 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.ezartech.ezar.snapshot": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "com.ezartech.ezar.videooverlay": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-tts": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "org.apache.cordova.speech.speechrecognition": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-wifiinfo-plugin": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ezartech.demos.ionicezar"
+        }
+    }
+}
