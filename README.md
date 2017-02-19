@@ -1,3 +1,3 @@
 After listening to the different challenges, I was most moved by the things that differently challenged people have to go through in campus. So, I wanted to do something that can improve their independence. After a couple of hours of researching and looking through different papers, I finally found a challenging idea to create an augmented reality mobile application that would be used for indoor navigation. I spoke about the idea with the different mentors to see if it would be helpful and after confirming that this idea would be worth pursuing, I built a small prototype !!
 
-![](home.png =250x) 
+![screenshot](home.png)
